@@ -236,7 +236,7 @@
                         <descriptor>src/main/assembly/idp-assembly-zip.xml</descriptor>
                     </descriptors>
                     <finalName>${idp.finalName}</finalName>
-                    <tarLongFileMode>gnu</tarLongFileMode>
+                    <tarLongFileMode>posix</tarLongFileMode>
                 </configuration>
             </plugin>
         </plugins>
