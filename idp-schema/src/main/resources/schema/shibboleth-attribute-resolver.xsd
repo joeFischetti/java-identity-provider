@@ -237,6 +237,27 @@
             </documentation>
         </annotation>
     </element>
+    
+    <element name="DataSealer">
+        <annotation>
+            <documentation>
+                Defines a DataSealer to be used for attribute decryption.  The only required param is the key
+            </documentation>
+        </annotation>
+        <attribute name="ref" type="resolver:string" use="required"/>
+            <annotation>
+                <documentation>
+                    The name of this data sealer
+                </documentation>
+            </annotation>
+        <attribute name="key" type="resolver:string" use="required"/>
+            <annotation>
+                <documentation>
+                    The key used for the datasealer
+                </documentation>
+            </annotation>
+    </element>
+    
     <element name="InputDataConnector">
         <annotation>
             <documentation>
@@ -605,6 +626,24 @@
         <complexContent>
             <extension base="resolver:BaseAttributeDefinitionType">
                 <choice maxOccurs="unbounded" minOccurs="0">
+                    <element ref="resolver:InputAttributeDefinition"/>
+                    <element ref="resolver:InputDataConnector"/>
+                    <element name="DisplayName" type="resolver:LocalizedStringType"/>
+                    <element name="DisplayDescription" type="resolver:LocalizedStringType"/>
+                    <element ref="resolver:AttributeEncoder"/>
+                </choice>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="Encrypted">
+        <annotation>
+            <documentation>An attribute definition involving an encrypted (DataSealed) attribute</documentation>
+        </annotation>
+        <complexContent>
+            <extension base="resolver:BaseAttributeDefinitionType">
+                <choice maxOccurs="unbounded" minOccurs="0">
+                    <element ref="resolver:DataSealer"/>
                     <element ref="resolver:InputAttributeDefinition"/>
                     <element ref="resolver:InputDataConnector"/>
                     <element name="DisplayName" type="resolver:LocalizedStringType"/>
