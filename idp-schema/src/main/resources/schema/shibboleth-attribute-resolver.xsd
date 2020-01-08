@@ -244,6 +244,20 @@
                 Defines a DataSealer to be used for attribute decryption.  The only required param is the key
             </documentation>
         </annotation>
+        
+        <complexType>
+            <attribute name="name" type="resolver:string" use="required">
+                <annotation>
+                    <documentation>The name of the key</documentation>
+                </annotation>
+            </attribute>
+            <attribute name="key" type="resolver:string" use="required">
+                <annotation>
+                    <documentation>The DataSealer key</documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    
     
     </element>
     
