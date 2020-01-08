@@ -257,6 +257,7 @@
                             <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
+                    <tarLongFileMode>posix</tarLongFileMode>
                 </configuration>
              </plugin>
         </plugins>
