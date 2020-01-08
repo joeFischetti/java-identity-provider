@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-	xmlns:resolver="urn:mace:shibboleth:2.0:resolver"
-	xmlns:sec="urn:mace:shibboleth:2.0:security"
-	targetNamespace="urn:mace:shibboleth:2.0:resolver"
-	elementFormDefault="qualified" version="4.0">
+    xmlns:resolver="urn:mace:shibboleth:2.0:resolver"
+    xmlns:sec="urn:mace:shibboleth:2.0:security"
+    targetNamespace="urn:mace:shibboleth:2.0:resolver"
+    elementFormDefault="qualified" version="4.0">
 
     <import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
     <import namespace="urn:mace:shibboleth:2.0:security" schemaLocation="http://shibboleth.net/schema/idp/shibboleth-security.xsd"/>
@@ -91,11 +91,11 @@
         </annotation>
         <sequence>
             <element name="ActivationConditionScript" type="resolver:ScriptType" minOccurs="0">
-	            <annotation>
-	                <documentation>
-	                    A scripted predicate which controls whether this encoder will run
-	                </documentation>
-	            </annotation>
+                <annotation>
+                    <documentation>
+                        A scripted predicate which controls whether this encoder will run
+                    </documentation>
+                </annotation>
             </element>
         </sequence>
         <attribute name="name" type="resolver:string"/>
@@ -244,18 +244,7 @@
                 Defines a DataSealer to be used for attribute decryption.  The only required param is the key
             </documentation>
         </annotation>
-        <attribute name="ref" type="resolver:string" use="required"/>
-            <annotation>
-                <documentation>
-                    The name of this data sealer
-                </documentation>
-            </annotation>
-        <attribute name="key" type="resolver:string" use="required"/>
-            <annotation>
-                <documentation>
-                    The key used for the datasealer
-                </documentation>
-            </annotation>
+    
     </element>
     
     <element name="InputDataConnector">
@@ -635,15 +624,15 @@
             </extension>
         </complexContent>
     </complexType>
-    
-    <complexType name="Encrypted">
+   
+    <complexType name="Decrypted">
         <annotation>
             <documentation>An attribute definition involving an encrypted (DataSealed) attribute</documentation>
         </annotation>
         <complexContent>
             <extension base="resolver:BaseAttributeDefinitionType">
                 <choice maxOccurs="unbounded" minOccurs="0">
-                    <element ref="resolver:DataSealer"/>
+                    <!--<element ref="resolver:DataSealer"/>-->
                     <element ref="resolver:InputAttributeDefinition"/>
                     <element ref="resolver:InputDataConnector"/>
                     <element name="DisplayName" type="resolver:LocalizedStringType"/>
@@ -668,16 +657,16 @@
                 <attribute name="attributeValuesFunctionRef" type="resolver:string">
                     <annotation>
                         <documentation>
-	                        Provides a plug in point to allow general extraction of values from Principals.
-	                        Mutually exclusive with principalAttributeName.
+                            Provides a plug in point to allow general extraction of values from Principals.
+                            Mutually exclusive with principalAttributeName.
                         </documentation>
                     </annotation>
                 </attribute>
                 <attribute name="principalAttributeName" type="resolver:string">
                     <annotation>
                         <documentation>
-	                        The id of the IdPAttribute contained within a IdPAttributePrincipal to look for.
-	                        Mutually exclusive with attributeValueEngineRef.
+                            The id of the IdPAttribute contained within a IdPAttributePrincipal to look for.
+                            Mutually exclusive with attributeValueEngineRef.
                         </documentation>
                     </annotation>
                 </attribute>
@@ -1229,7 +1218,7 @@
                                 <extension base="string">
                                     <attribute name="MIMEType" type="resolver:string" />
                                     <attribute name="charset" type="resolver:string" />
-					                <attribute name="customObjectRef" type="resolver:string" />
+                                    <attribute name="customObjectRef" type="resolver:string" />
                                 </extension>
                             </simpleContent>
                         </complexType>
@@ -1499,7 +1488,7 @@
                 <attribute name="failFast" type="resolver:string">
                     <annotation>
                         <documentation>
-			  Deprecated, use failFastInitialize
+              Deprecated, use failFastInitialize
                         </documentation>
                     </annotation>
                 </attribute>
