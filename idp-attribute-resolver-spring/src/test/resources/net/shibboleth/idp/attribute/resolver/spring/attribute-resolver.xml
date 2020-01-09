@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AttributeResolver xmlns="urn:mace:shibboleth:2.0:resolver" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="urn:mace:shibboleth:2.0:resolver http://shibboleth.net/schema/idp/shibboleth-attribute-resolver.xsd">
+                   xsi:schemaLocation="urn:mace:shibboleth:2.0:resolver http://127.0.0.1/enable/shibboleth-attribute-resolver.xsd">
 
     <!-- ========================================== -->
     <!--      Attribute Definitions                 -->
@@ -27,6 +27,10 @@
     <AttributeDefinition xsi:type="Simple" id="broken2">
         <InputAttributeDefinition ref="simpleEPE" />
         <InputAttributeDefinition ref="eduPersonAffiliation" />
+    </AttributeDefinition>
+
+    <AttributeDefinition xsi:type="Decrypted" id="encryptedOne">
+	<InputDataConnector ref="staticEncrypted" attributeNames="encryptedOne"/>
     </AttributeDefinition>
 
     <!-- Schema: Core schema attributes-->
@@ -201,6 +205,16 @@
     <!-- ========================================== -->
     <!--      Data Connectors                       -->
     <!-- ========================================== -->
+
+    <DataConnector id="staticEncrypted" xsi:type="Static">
+        <Attribute id="encryptedOne">
+            <Value>asldkjsldkjasldkj</Value>
+        </Attribute>
+        <Attribute id="encryptedTwo">
+            <Value>lkasdjflkjsdflkjsdflkj</Value>
+            <Value>lkjsadflkjsdlfkjlsdakjfsadlkfj</Value>
+        </Attribute>
+    </DataConnector>
 
     <!-- Example Relational Database Connector -->
 
