@@ -19,8 +19,12 @@ package net.shibboleth.idp.attribute.resolver.ad.impl;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+import java.util.Collection;
+import java.util.ArrayList;
 
 import net.shibboleth.idp.attribute.IdPAttribute;
+import net.shibboleth.idp.attribute.StringAttributeValue;
+import net.shibboleth.idp.attribute.IdPAttributeValue;
 import net.shibboleth.idp.attribute.resolver.AbstractAttributeDefinition;
 import net.shibboleth.idp.attribute.resolver.PluginDependencySupport;
 import net.shibboleth.idp.attribute.resolver.ResolutionException;
@@ -87,6 +91,8 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
                 getDataConnectorDependencies(), 
                 getId()));
 
+	Collection<IdPAttributeValue> decryptedAttributes = new ArrayList();
+
 	for(int i = 0; i < result.getValues().size(); i++){
         	log.debug("{} Encrypted Attribute Value: {}", getLogPrefix(), result.getValues().get(i).getDisplayValue());
 		
@@ -94,7 +100,9 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
 			log.trace("{} Encryption key: {}", getLogPrefix(), strategy.getKey("key").getEncoded());
 			String decrypted = sealer.unwrap(result.getValues().get(i).getDisplayValue());
 
-			log.debug("{}: Attempted decryption using DataSealer key provided: {}", getLogPrefix(), decrypted);
+			log.debug("{}: Adding decypted string attribute to collection: {}", getLogPrefix(), decrypted);
+			decryptedAttributes.add(new StringAttributeValue(decrypted));
+			
 		} catch(Exception e){
 			log.debug("{}: Error decrypting attribute: {}", getLogPrefix(), e);
 		}
@@ -102,9 +110,10 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
 
         }
 
-	
+	final IdPAttribute decryptedResults = new IdPAttribute(getId());
+        decryptedResults.setValues(decryptedAttributes);
 
-        return result;
+        return decryptedResults;
     }
 
     /** {@inheritDoc} */
