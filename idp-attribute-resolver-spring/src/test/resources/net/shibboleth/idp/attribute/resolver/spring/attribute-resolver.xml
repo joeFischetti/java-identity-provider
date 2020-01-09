@@ -29,9 +29,14 @@
         <InputAttributeDefinition ref="eduPersonAffiliation" />
     </AttributeDefinition>
 
-    <AttributeDefinition xsi:type="Decrypted" id="encryptedOne">
+    <AttributeDefinition xsi:type="Decrypted" id="encryptedOne" key="my32characterdecryptionkey123456">
 	<InputDataConnector ref="staticEncrypted" attributeNames="encryptedOne"/>
     </AttributeDefinition>
+
+    <AttributeDefinition xsi:type="Decrypted" id="encryptedWithKey" key="my32characterdecryptionkey123456">
+	<InputDataConnector ref="staticEncrypted" attributeNames="encryptedTwo"/>
+    </AttributeDefinition>
+
 
     <!-- Schema: Core schema attributes-->
     
@@ -208,11 +213,14 @@
 
     <DataConnector id="staticEncrypted" xsi:type="Static">
         <Attribute id="encryptedOne">
-            <Value>asldkjsldkjasldkj</Value>
+		<!-- plaintext: VRVGNOMLYRYYGJLA -->
+            <Value>AANrZXkYWcHiR/bUhcBjN/UA2Nd3PXA3Li9lzDuHNeislR4Bb5SNiXItYiiBnjYbKPY4+tnOccSY76rI+w71xAQZogcaNzq5xawdamGQbL3q61g=</Value>
         </Attribute>
         <Attribute id="encryptedTwo">
-            <Value>lkasdjflkjsdflkjsdflkj</Value>
-            <Value>lkjsadflkjsdlfkjlsdakjfsadlkfj</Value>
+		<!-- plaintext: QPFRNDWKYLJJOSMW -->
+            <Value>AANrZXn3ozgYXbAc8evbXNkJDfpiOhnl/vYx907aT1N6FFvJwu57LHPMx0Yq57Q/Eo/MabrOJBUKcPTrl7IKI4MB1Ume+G/uYKkdGt8X5ecLhD4=</Value>
+		<!-- plaintext: VVKQZTOGRWEJYYHJ -->
+            <Value>AAdUaGUgS2V5Y8mRo94qsZSD8SjqnD4YMFYEkiH9401Dvte73YQxAF0DgvfjyJKHDRiRAE9PAYfhnveYE7Wbi1fEdlIpXyXaYdO3x+f7ZUcPYaSS+pbO</Value>
         </Attribute>
     </DataConnector>
 
