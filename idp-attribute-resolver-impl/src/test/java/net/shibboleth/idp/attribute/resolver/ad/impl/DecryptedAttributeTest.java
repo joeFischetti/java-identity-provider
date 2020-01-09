@@ -69,6 +69,7 @@ public class DecryptedAttributeTest {
             //OK
         }
         decrypted.setDataConnectorDependencies(Collections.singleton(TestSources.makeDataConnectorDependency("foo", "bar")));
+	decrypted.setKey("my32characterencryptedstring1234");
         decrypted.initialize();
 
         final AttributeResolutionContext context = new AttributeResolutionContext();
@@ -93,6 +94,7 @@ public class DecryptedAttributeTest {
         dependencySet.add(TestSources.makeDataConnectorDependency(TestSources.STATIC_CONNECTOR_NAME,
                 TestSources.DEPENDS_ON_ATTRIBUTE_NAME_CONNECTOR));
         decrypted.setDataConnectorDependencies(dependencySet);
+	decrypted.setKey("my32characterencryptedstring1234");
         decrypted.initialize();
 
         // And resolve
@@ -133,6 +135,7 @@ public class DecryptedAttributeTest {
         final Set<ResolverAttributeDefinitionDependency> dependencySet = new LazySet<>();
         dependencySet.add(TestSources.makeAttributeDefinitionDependency(TestSources.DEPENDS_ON_ATTRIBUTE_NAME_ATTR));
         decrypted.setAttributeDependencies(dependencySet);
+	decrypted.setKey("my32characterencryptedstring1234");
         decrypted.initialize();
 
         // And resolve
@@ -179,6 +182,7 @@ public class DecryptedAttributeTest {
         final DecryptedAttributeDefinition decrypted = new DecryptedAttributeDefinition();
         decrypted.setId(TEST_ATTRIBUTE_NAME);
         decrypted.setDataConnectorDependencies(Collections.singleton(depend));
+	decrypted.setKey("my32characterencryptedstring1234");
         decrypted.initialize();
 
         final IdPAttribute result = decrypted.resolve(resolutionContext);
@@ -207,6 +211,7 @@ public class DecryptedAttributeTest {
         decrypted.setDataConnectorDependencies(Collections.singleton(
                 TestSources.makeDataConnectorDependency(TestSources.STATIC_CONNECTOR_NAME,
                         TestSources.DEPENDS_ON_ATTRIBUTE_NAME_CONNECTOR)));
+	decrypted.setKey("my32characterencryptedstring1234");
         decrypted.initialize();
 
         // And resolve

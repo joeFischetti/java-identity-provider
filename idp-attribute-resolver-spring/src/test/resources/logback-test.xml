@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
+    <logger name="net.shibboleth.utilities.java.support.security.DataSealer" level="TRACE"/>
     <logger name="net.shibboleth.idp.attribute.resolver.spring" level="DEBUG"/>
     <logger name="net.shibboleth.idp.attribute.transcoding.spring" level="DEBUG"/>
     <logger name="net.shibboleth.idp.attribute.resolver" level="DEBUG"/>

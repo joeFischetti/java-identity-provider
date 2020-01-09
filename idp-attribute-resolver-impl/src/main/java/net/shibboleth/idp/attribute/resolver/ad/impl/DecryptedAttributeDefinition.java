@@ -27,7 +27,20 @@ import net.shibboleth.idp.attribute.resolver.ResolutionException;
 import net.shibboleth.idp.attribute.resolver.context.AttributeResolutionContext;
 import net.shibboleth.idp.attribute.resolver.context.AttributeResolverWorkContext;
 import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
+import net.shibboleth.utilities.java.support.annotation.constraint.NonnullAfterInit;
+import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
+import net.shibboleth.utilities.java.support.component.ComponentSupport;
 import net.shibboleth.utilities.java.support.logic.Constraint;
+import net.shibboleth.utilities.java.support.primitive.StringSupport;
+import net.shibboleth.utilities.java.support.security.DataSealer;
+import net.shibboleth.utilities.java.support.security.impl.BasicKeyStrategy;
+
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 /**
  * A {@link net.shibboleth.idp.attribute.resolver.AttributeDefinition} that creates an attribute whose values are the
@@ -35,6 +48,32 @@ import net.shibboleth.utilities.java.support.logic.Constraint;
  */
 @ThreadSafe
 public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
+
+    /** Class logger. */
+    @Nonnull private final Logger log = LoggerFactory.getLogger(DecryptedAttributeDefinition.class);
+
+    /** key value. */
+    @NonnullAfterInit private String key;
+
+    private BasicKeyStrategy strategy;
+
+    private DataSealer sealer; 
+
+
+    /**
+     * Set the key for this definition.
+     * 
+     * @param newKey what to set.
+     */
+    public void setKey(@Nonnull @NotEmpty final String newKey) {
+        ComponentSupport.ifDestroyedThrowDestroyedComponentException(this);
+        ComponentSupport.ifInitializedThrowUnmodifiabledComponentException(this);
+
+        key = Constraint.isNotNull(StringSupport.trimOrNull(newKey), "Key can not be null or empty");
+
+
+    }
+
 
     /** {@inheritDoc} */
     @Override @Nonnull protected IdPAttribute doAttributeDefinitionResolve(
@@ -48,6 +87,23 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
                 getDataConnectorDependencies(), 
                 getId()));
 
+	for(int i = 0; i < result.getValues().size(); i++){
+        	log.debug("{} Encrypted Attribute Value: {}", getLogPrefix(), result.getValues().get(i).getDisplayValue());
+		
+		try{
+			log.trace("{} Encryption key: {}", getLogPrefix(), strategy.getKey("key").getEncoded());
+			String decrypted = sealer.unwrap(result.getValues().get(i).getDisplayValue());
+
+			log.debug("{}: Attempted decryption using DataSealer key provided: {}", getLogPrefix(), decrypted);
+		} catch(Exception e){
+			log.debug("{}: Error decrypting attribute: {}", getLogPrefix(), e);
+		}
+		
+
+        }
+
+	
+
         return result;
     }
 
@@ -58,6 +114,22 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
         if (getDataConnectorDependencies().isEmpty() && getAttributeDependencies().isEmpty()) {
             throw new ComponentInitializationException(getLogPrefix() + " no dependencies were configured");
         }
+        strategy = new BasicKeyStrategy();
+        strategy.setSecretKey(key);
+
+        sealer = new DataSealer();
+        sealer.setKeyStrategy(strategy);
+
+	try{
+	    strategy.initialize();
+            sealer.initialize();
+	    log.debug("{} Initialized DataSealer and Key Strategy for attribute decryption", getLogPrefix());
+        } catch (Exception e) {
+            log.debug("{} Couldn't initialize DataSealer or Key Strategy: {}", getLogPrefix(), e);
+        }
+
+
+
     }
   
 }

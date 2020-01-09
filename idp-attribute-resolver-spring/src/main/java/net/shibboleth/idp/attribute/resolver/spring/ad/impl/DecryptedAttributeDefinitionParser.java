@@ -20,6 +20,8 @@ package net.shibboleth.idp.attribute.resolver.spring.ad.impl;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.ParserContext;
@@ -28,6 +30,7 @@ import org.w3c.dom.Element;
 import net.shibboleth.idp.attribute.resolver.ad.impl.DecryptedAttributeDefinition;
 import net.shibboleth.idp.attribute.resolver.spring.ad.BaseAttributeDefinitionParser;
 import net.shibboleth.idp.attribute.resolver.spring.impl.AttributeResolverNamespaceHandler;
+import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
 /** Bean definition parser for a {@link DecryptedAttributeDefinition}. */
 public class DecryptedAttributeDefinitionParser extends BaseAttributeDefinitionParser {
@@ -35,6 +38,10 @@ public class DecryptedAttributeDefinitionParser extends BaseAttributeDefinitionP
     /** Schema type name. */
     @Nonnull public static final QName TYPE_NAME_RESOLVER =
             new QName(AttributeResolverNamespaceHandler.NAMESPACE, "Decrypted");
+
+    /** Class logger. */
+    @Nonnull private final Logger log = LoggerFactory.getLogger(DecryptedAttributeDefinitionParser.class);
+
 
     /** {@inheritDoc} */
     @Override protected Class<DecryptedAttributeDefinition> getBeanClass(@Nullable final Element element) {
@@ -45,5 +52,16 @@ public class DecryptedAttributeDefinitionParser extends BaseAttributeDefinitionP
     @Override protected void doParse(@Nonnull final Element config, @Nonnull final ParserContext parserContext,
             @Nonnull final BeanDefinitionBuilder builder) {
         super.doParse(config, parserContext, builder);
+
+
+        final String decryptionKey = StringSupport.trimOrNull(config.getAttributeNS(null, "key"));
+	if(decryptionKey != null){
+        	log.debug("{} Setting key to '{}'.", getLogPrefix(), decryptionKey);
+        	builder.addPropertyValue("key", decryptionKey);
+	}
+	else{
+		log.debug("{} No key provided for decryption, setting to NOKEYPROVIDED", getLogPrefix());
+		builder.addPropertyValue("key", "NOKEYPOVIDED");
+	}
     }
 }
