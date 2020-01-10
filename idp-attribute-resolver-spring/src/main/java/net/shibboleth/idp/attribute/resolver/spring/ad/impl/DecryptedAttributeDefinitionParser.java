@@ -53,21 +53,11 @@ public class DecryptedAttributeDefinitionParser extends BaseAttributeDefinitionP
             @Nonnull final BeanDefinitionBuilder builder) {
         super.doParse(config, parserContext, builder);
 
-
-        final String decryptionKey = StringSupport.trimOrNull(config.getAttributeNS(null, "key"));
-	if(decryptionKey != null){
-        	log.debug("{} Setting key to '{}'.", getLogPrefix(), decryptionKey);
-        	builder.addPropertyValue("key", decryptionKey);
-	}
-	else{
-		log.debug("{} No key provided for decryption, setting to NOKEYPROVIDED", getLogPrefix());
-		builder.addPropertyValue("key", "NOKEYPOVIDED");
-	}
 	
 	final String dataSealer = StringSupport.trimOrNull(config.getAttributeNS(null, "dataSealerRef"));
 	if(dataSealer != null){
 		log.debug("{} Setting DataSealer to '{}'.", getLogPrefix(), dataSealer);
-		//builder.addPropertyReference("DataSealer", dataSealer);
+		builder.addPropertyReference("sealer", dataSealer);
 	}
     }
 }

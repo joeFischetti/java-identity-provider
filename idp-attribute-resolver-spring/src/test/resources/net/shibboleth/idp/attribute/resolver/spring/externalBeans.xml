@@ -22,30 +22,14 @@
         </property>
     </bean>
    
-    <!-- This bean MUST be called "conversionService" to work properly. -->
-    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="net.shibboleth.ext.spring.config.StringToIPRangeConverter" />
-                <bean class="net.shibboleth.ext.spring.config.BooleanToPredicateConverter" />
-                <bean class="net.shibboleth.ext.spring.config.StringBooleanToPredicateConverter" />
-                <bean class="net.shibboleth.ext.spring.config.StringToResourceConverter" />
-                <bean class="net.shibboleth.ext.spring.config.FunctionToFunctionConverter" />
-                <bean class="net.shibboleth.ext.spring.config.PredicateToPredicateConverter" />
-                <bean class="net.shibboleth.ext.spring.config.StringToDurationConverter" />
-            </set>
-        </property>
-    </bean>
- 
      <bean id="encryptedAttribute.DataSealer" class="net.shibboleth.utilities.java.support.security.DataSealer">
         <property name="keyStrategy">
-<!--            <bean class="net.shibboleth.utilities.java.support.security.impl.BasicKeyStrategy"
-                p:key="my32characterdecryptionkey123456"/> -->
             <bean class="net.shibboleth.utilities.java.support.security.impl.BasicKeystoreKeyStrategy"
-                p:keystoreResource="/net/shibboleth/idp/attribute/resolver/spring/ad/SealerKeyStore.jks"
+                p:keystoreResource="/net/shibboleth/idp/attribute/resolver/spring/ad/EncryptionKeyStore.p12"
 		p:keyVersionResource="/net/shibboleth/idp/attribute/resolver/spring/ad/SealerKeyStore.kver"
                 p:keystorePassword="kpassword"
-                p:keyPassword="password"
+                p:keyPassword="kpassword"
+		p:keystoreType="pkcs12"
                 p:updateInterval="PT0S" />
 
         </property>

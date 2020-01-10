@@ -30,11 +30,12 @@
         <InputAttributeDefinition ref="eduPersonAffiliation" />
     </AttributeDefinition>
 
-    <AttributeDefinition xsi:type="Decrypted" id="decryptedOne" key="my32characterdecryptionkey123456" dataSealerRef="encryptedAttribute.DataSealer">
+    <!-- key="my32characterdecryptionkey123456" -->
+    <AttributeDefinition xsi:type="Decrypted" id="decryptedOne" dataSealerRef="encryptedAttribute.DataSealer">
 	<InputDataConnector ref="staticEncrypted" attributeNames="encryptedOne"/>
     </AttributeDefinition>
 
-    <AttributeDefinition xsi:type="Decrypted" id="decryptedTwo" key="my32characterdecryptionkey123456">
+    <AttributeDefinition xsi:type="Decrypted" id="decryptedTwo" dataSealerRef="encryptedAttribute.DataSealer">
 	<InputDataConnector ref="staticEncrypted" attributeNames="encryptedTwo"/>
     </AttributeDefinition>
 
@@ -214,14 +215,14 @@
 
     <DataConnector id="staticEncrypted" xsi:type="Static">
         <Attribute id="encryptedOne">
-		<!-- plaintext: VRVGNOMLYRYYGJLA -->
-            <Value>AANrZXkYWcHiR/bUhcBjN/UA2Nd3PXA3Li9lzDuHNeislR4Bb5SNiXItYiiBnjYbKPY4+tnOccSY76rI+w71xAQZogcaNzq5xawdamGQbL3q61g=</Value>
+		<!-- plaintext: FSQLHDXWHNXERUOK-->
+            <Value>AANrZXnPi0tBgSK6Vxj4tona1g7+oylpeByveMa6XFdZiFWmcnDkDNwEsQZKWeOmIJErmpyvNqUVCFv8fUvd1fOaUtNayKw49nCxrfW4gU2zI2A=</Value>
         </Attribute>
         <Attribute id="encryptedTwo">
-		<!-- plaintext: QPFRNDWKYLJJOSMW -->
-            <Value>AANrZXn3ozgYXbAc8evbXNkJDfpiOhnl/vYx907aT1N6FFvJwu57LHPMx0Yq57Q/Eo/MabrOJBUKcPTrl7IKI4MB1Ume+G/uYKkdGt8X5ecLhD4=</Value>
-		<!-- plaintext: VVKQZTOGRWEJYYHJ -->
-            <Value>AAdUaGUgS2V5Y8mRo94qsZSD8SjqnD4YMFYEkiH9401Dvte73YQxAF0DgvfjyJKHDRiRAE9PAYfhnveYE7Wbi1fEdlIpXyXaYdO3x+f7ZUcPYaSS+pbO</Value>
+		<!-- plaintext: KYQCZKQMJLWQUGSO -->
+            <Value>AANrZXnZY6djg+8Rnq4YBfgrJin85ddkI9UESmrm/sdJJHalGsRtZliv9ql2Z2ZfWApro5bw/19gtdnw5hImfcxRMq+u6itQJER7tg0jWB3QRe4=</Value>
+		<!-- plaintext: TZQMFYJTLWPPDLVT -->
+            <Value>AANrZXkJSpOo8wlvL+DiBhhEnfI8MDq1mYj+p674fhyiMQr7LkCzq1ckXryKQVfX6ei5X9O7n1QecpfSXMgX5c7mU4ftl0ovmj/vwSXIhKmwFvw=</Value>
         </Attribute>
     </DataConnector>
 
