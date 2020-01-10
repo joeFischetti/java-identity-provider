@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <AttributeResolver xmlns="urn:mace:shibboleth:2.0:resolver" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="urn:mace:shibboleth:2.0:resolver http://127.0.0.1/enable/shibboleth-attribute-resolver.xsd">
 
@@ -29,11 +30,11 @@
         <InputAttributeDefinition ref="eduPersonAffiliation" />
     </AttributeDefinition>
 
-    <AttributeDefinition xsi:type="Decrypted" id="encryptedOne" key="my32characterdecryptionkey123456">
+    <AttributeDefinition xsi:type="Decrypted" id="decryptedOne" key="my32characterdecryptionkey123456" dataSealerRef="encryptedAttribute.DataSealer">
 	<InputDataConnector ref="staticEncrypted" attributeNames="encryptedOne"/>
     </AttributeDefinition>
 
-    <AttributeDefinition xsi:type="Decrypted" id="encryptedWithKey" key="my32characterdecryptionkey123456">
+    <AttributeDefinition xsi:type="Decrypted" id="decryptedTwo" key="my32characterdecryptionkey123456">
 	<InputDataConnector ref="staticEncrypted" attributeNames="encryptedTwo"/>
     </AttributeDefinition>
 

@@ -63,5 +63,11 @@ public class DecryptedAttributeDefinitionParser extends BaseAttributeDefinitionP
 		log.debug("{} No key provided for decryption, setting to NOKEYPROVIDED", getLogPrefix());
 		builder.addPropertyValue("key", "NOKEYPOVIDED");
 	}
+	
+	final String dataSealer = StringSupport.trimOrNull(config.getAttributeNS(null, "dataSealerRef"));
+	if(dataSealer != null){
+		log.debug("{} Setting DataSealer to '{}'.", getLogPrefix(), dataSealer);
+		//builder.addPropertyReference("DataSealer", dataSealer);
+	}
     }
 }

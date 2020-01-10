@@ -210,10 +210,10 @@ public class AttributeResolverTest extends OpenSAMLInitBaseTestCase {
         assertEquals(values.size(), expectedEPAValues);
         assertTrue(values.contains(new StringAttributeValue("member")));
 
-	attribute = resolvedAttributes.get("encryptedOne");
+	attribute = resolvedAttributes.get("decryptedOne");
 	assertNotNull(attribute);
 	values = attribute.getValues();
-	assertTrue(values.contains(new StringAttributeValue("asldkjsldkjasldkj")));
+	assertTrue(values.contains(new StringAttributeValue("VRVGNOMLYRYYGJLA")));
         
         // Broken (case 665)
         attribute =  resolvedAttributes.get("broken");
