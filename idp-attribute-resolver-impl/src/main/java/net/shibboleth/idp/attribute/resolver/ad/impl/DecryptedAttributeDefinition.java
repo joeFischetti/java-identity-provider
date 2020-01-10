@@ -94,7 +94,7 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
 		try{
 			String decrypted = sealer.unwrap(result.getValues().get(i).getDisplayValue());
 
-			log.debug("{}: Adding decypted string attribute to collection: {}", getLogPrefix(), decrypted);
+			log.trace("{}: Adding decypted string attribute to collection: {}", getLogPrefix(), decrypted);
 			decryptedAttributes.add(new StringAttributeValue(decrypted));
 			
 		} catch(Exception e){
