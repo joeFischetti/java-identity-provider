@@ -56,27 +56,22 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
     /** Class logger. */
     @Nonnull private final Logger log = LoggerFactory.getLogger(DecryptedAttributeDefinition.class);
 
-    /** key value. */
-    @NonnullAfterInit private String key;
-
-    private BasicKeyStrategy strategy;
-
+    /** The DataSealer that we'll use to decrypt the attribute **/
     private DataSealer sealer; 
 
 
     /**
-     * Set the key for this definition.
+     * Set the DataSealer (sealer) for this Definition
      * 
-     * @param newKey what to set.
+     * @param newSealer what to set.
      */
-    public void setKey(@Nonnull @NotEmpty final String newKey) {
+    public void setSealer(@Nonnull @NotEmpty final DataSealer newSealer) {
         ComponentSupport.ifDestroyedThrowDestroyedComponentException(this);
         ComponentSupport.ifInitializedThrowUnmodifiabledComponentException(this);
 
-        key = Constraint.isNotNull(StringSupport.trimOrNull(newKey), "Key can not be null or empty");
-
-
+        sealer = newSealer;
     }
+
 
 
     /** {@inheritDoc} */
@@ -97,7 +92,6 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
         	log.debug("{} Encrypted Attribute Value: {}", getLogPrefix(), result.getValues().get(i).getDisplayValue());
 		
 		try{
-			log.trace("{} Encryption key: {}", getLogPrefix(), strategy.getKey("key").getEncoded());
 			String decrypted = sealer.unwrap(result.getValues().get(i).getDisplayValue());
 
 			log.debug("{}: Adding decypted string attribute to collection: {}", getLogPrefix(), decrypted);
@@ -123,21 +117,6 @@ public class DecryptedAttributeDefinition extends AbstractAttributeDefinition {
         if (getDataConnectorDependencies().isEmpty() && getAttributeDependencies().isEmpty()) {
             throw new ComponentInitializationException(getLogPrefix() + " no dependencies were configured");
         }
-        strategy = new BasicKeyStrategy();
-        strategy.setSecretKey(key);
-
-        sealer = new DataSealer();
-        sealer.setKeyStrategy(strategy);
-
-	try{
-	    strategy.initialize();
-            sealer.initialize();
-	    log.debug("{} Initialized DataSealer and Key Strategy for attribute decryption", getLogPrefix());
-        } catch (Exception e) {
-            log.debug("{} Couldn't initialize DataSealer or Key Strategy: {}", getLogPrefix(), e);
-        }
-
-
 
     }
   
