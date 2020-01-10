@@ -12,7 +12,8 @@
     <!-- This BeanPostProcessor auto-sets identifiable beans with the bean name (if not already set). -->
     <bean id="shibboleth.IdentifiableBeanPostProcessor"
         class="net.shibboleth.ext.spring.config.IdentifiableBeanPostProcessor" />     
-                            
+ 
+                           
     <bean id="shibboleth.VelocityEngine" class="net.shibboleth.ext.spring.velocity.VelocityEngineFactoryBean">
         <property name="velocityProperties">
             <props>
@@ -26,7 +27,7 @@
             </props>
         </property>
     </bean>
-        <bean id="shibboleth.AttributeResolverService" class="net.shibboleth.ext.spring.service.ReloadableSpringService"
+    <bean id="shibboleth.AttributeResolverService" class="net.shibboleth.ext.spring.service.ReloadableSpringService"
         depends-on="shibboleth.VelocityEngine"
         p:beanPostProcessors-ref="shibboleth.IdentifiableBeanPostProcessor"
         p:failFast="false" p:reloadCheckDelay="0">
