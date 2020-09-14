@@ -19,7 +19,7 @@
     <properties>
         <idp.finalName>shibboleth-identity-provider-${project.version}</idp.finalName>
         <idp.assemblyDirectory>${project.build.directory}/${idp.finalName}</idp.assemblyDirectory>
-        <ant.version>1.10.7</ant.version>
+        <ant.version>1.10.8</ant.version>
     </properties>
 
     <dependencies>
